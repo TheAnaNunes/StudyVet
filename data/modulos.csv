@@ -5,3 +5,7 @@ mod03,3,Anatomia Veterinaria,Sistema Muscular,Musculos e movimento,muscle
 mod04,4,Anatomia Veterinaria,Sistema Digestorio,Orgaos e funcoes da digestao,stomach
 mod05,5,Fisiologia Veterinaria,Sistema Cardiovascular,Coracao circulacao e sangue,heart
 mod06,6,Fisiologia Veterinaria,Sistema Respiratorio,Pulmoes e trocas gasosas,lungs
+mod07,7,Inspecao de Produtos de Origem Animal,Fundamentos da Inspecao,Saude Unica SIF SIE SIM e SISBI-POA,shield
+mod08,8,Inspecao de Produtos de Origem Animal,Ciencia da Carne,pH pos-abate PSE DFD e mioglobina,meat
+mod09,9,Inspecao de Produtos de Origem Animal,Abate de Bovinos,Pre-abate abate humanitario e linhas de inspecao,cow
+mod10,10,Inspecao de Produtos de Origem Animal,Abate de Suinos,Fluxograma completo do abate de suinos,pig
