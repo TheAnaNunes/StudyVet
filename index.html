@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+<title>StudyVet</title>
+<meta name="description" content="Estude veterinaria em formato de trilha, com perguntas e respostas estilo Duolingo." />
+<meta name="theme-color" content="#131F24" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="StudyVet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="app">
+
+  <!-- TELA: TRILHA (LISTA DE MODULOS) -->
+  <section id="screen-path" class="screen">
+    <header class="topbar">
+      <div class="topbar-title">StudyVet</div>
+      <div class="streak-badge" id="streak-badge">
+        <span class="flame">🔥</span>
+        <span id="streak-count">0</span>
+      </div>
+    </header>
+    <div id="path-list" class="path-list"></div>
+    <p class="import-hint">
+      Adicione seus proprios CSVs em <code>/data</code> para expandir o conteudo.
+      <button id="import-btn" class="link-btn">Importar CSV</button>
+    </p>
+    <input type="file" id="import-input" accept=".csv" multiple hidden />
+  </section>
+
+  <!-- TELA: QUIZ -->
+  <section id="screen-quiz" class="screen hidden">
+    <header class="quiz-header">
+      <button id="quiz-close" class="icon-btn" aria-label="Fechar">✕</button>
+      <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+      <div class="hearts" id="hearts">❤️❤️❤️❤️❤️</div>
+    </header>
+
+    <div class="quiz-body">
+      <h2 id="question-text" class="question-text"></h2>
+      <div id="options-list" class="options-list"></div>
+    </div>
+
+    <footer id="quiz-footer" class="quiz-footer">
+      <div id="feedback-box" class="feedback-box hidden">
+        <div id="feedback-title" class="feedback-title"></div>
+        <p id="feedback-explanation" class="feedback-explanation"></p>
+      </div>
+      <button id="action-btn" class="action-btn" disabled>Verificar</button>
+    </footer>
+  </section>
+
+  <!-- TELA: RESULTADO DA LICAO -->
+  <section id="screen-result" class="screen hidden">
+    <div class="result-body">
+      <div id="result-emoji" class="result-emoji">🎉</div>
+      <h2 id="result-title">Licao concluida!</h2>
+      <div class="result-stats">
+        <div class="stat-card">
+          <div class="stat-value" id="result-correct">0</div>
+          <div class="stat-label">Acertos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="result-xp">0</div>
+          <div class="stat-label">XP ganho</div>
+        </div>
+      </div>
+      <button id="result-continue" class="action-btn">Continuar</button>
+    </div>
+  </section>
+
+</div>
+
+<script src="js/csv.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
