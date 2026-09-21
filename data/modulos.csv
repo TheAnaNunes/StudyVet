@@ -10,3 +10,6 @@ mod08,8,Inspecao de Produtos de Origem Animal,Ciencia da Carne,pH pos-abate PSE 
 mod09,9,Inspecao de Produtos de Origem Animal,Abate de Bovinos,Pre-abate abate humanitario e linhas de inspecao,cow
 mod10,10,Inspecao de Produtos de Origem Animal,Abate de Suinos,Fluxograma completo do abate de suinos,pig
 mod11,11,Inspecao de Produtos de Origem Animal,Doencas e Zoonoses no Abate,Enfermidades pesquisadas na inspecao e seus riscos zoonoticos,virus
+mod12,12,Inspecao de Produtos de Origem Animal,Inspecao de Aves,Linhas de inspecao e causas de condenacao de carcacas de frango,bird
+mod13,13,Inspecao de Produtos de Origem Animal,Inspecao de Pescado,Frescor rigor mortis e riscos sanitarios do pescado,fish
+mod14,14,Inspecao de Produtos de Origem Animal,Legislacao Aplicada,RIISPOA leis e portarias que regem a inspecao,scale
