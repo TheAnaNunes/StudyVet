@@ -122,8 +122,17 @@
         <li>Ou edite/adicione os arquivos direto na pasta <code>data/</code>
         do repositorio, se tiver acesso ao codigo.</li>
       </ol>
-      <p>O formato exato dos CSVs e um prompt pronto pra gerar novo conteudo
-      com IA estao no <code>README.md</code> do repositorio.</p>
+      <h3>Gerar conteudo novo com IA</h3>
+      <p>Cole o material de aula (PDF, slides, resumo) e o prompt abaixo em
+      qualquer IA (Claude, ChatGPT etc.). Ela devolve as linhas prontas pra
+      colar em <code>modulos.csv</code> e <code>perguntas.csv</code>, ou
+      importar direto no app.</p>
+      <button id="copy-prompt-btn" class="link-btn copy-prompt-btn">Copiar prompt</button>
+      <pre id="ai-prompt-text" class="prompt-box"></pre>
+      <p class="prompt-note">Antes de colar, ajuste os numeros entre
+      <code>[colchetes]</code> (proximo <code>id_modulo</code> e
+      <code>ordem</code>) pra continuar a partir do ultimo modulo que ja
+      existe no app.</p>
     </div>
   </section>
 

@@ -12,6 +12,66 @@ const state = {
 
 const el = (id) => document.getElementById(id);
 
+const AI_PROMPT_TEMPLATE = `Voce vai gerar conteudo para o app de estudos StudyVet, no formato de dois
+arquivos CSV. Use o material que vou colar abaixo como fonte do conteudo.
+
+Gere DUAS tabelas CSV separadas, exatamente com estas colunas e nesta ordem:
+
+1) modulos.csv
+id_modulo,ordem,materia,titulo,descricao,icone
+
+2) perguntas.csv
+id_pergunta,id_modulo,ordem,pergunta,opcao_a,opcao_b,opcao_c,opcao_d,resposta_correta,explicacao
+
+Regras:
+- Crie [1] modulo(s) novo(s), cobrindo os principais topicos do material.
+- id_modulo comeca em "{NEXT_ID}" e incrementa.
+- ordem em modulos.csv comeca em {NEXT_ORDER} e segue a sequencia cronologica
+  de estudo (do mais basico/introdutorio para o mais avancado).
+- materia: use o nome da disciplina do material. Se for a mesma disciplina de
+  um modulo que ja existe no app, repita o nome exatamente igual, pra ficar
+  agrupado junto.
+- Cada modulo deve ter entre 6 e 10 perguntas de multipla escolha.
+- id_pergunta segue o padrao "p<numero do modulo com 2 digitos><numero da
+  pergunta com 2 digitos>", ex.: {NEXT_ID} -> p{NEXT_ID_NUM}01, p{NEXT_ID_NUM}02...
+- ordem em perguntas.csv comeca em 1 dentro de cada modulo.
+- Cada pergunta tem exatamente 4 alternativas (opcao_a a opcao_d), sendo
+  apenas UMA correta. Alternativas erradas devem ser plausiveis, nao obvias.
+- resposta_correta e sempre "a", "b", "c" ou "d" (minusculo).
+- explicacao: 1-2 frases justificando a resposta correta, para aparecer
+  depois que a pessoa responder.
+- Nao invente numeros de lei, percentuais, prazos ou valores tecnicos que
+  nao estejam no material colado ou que voce nao tenha certeza — nesse caso,
+  formule a pergunta de forma conceitual em vez de citar o numero exato.
+- Toda linha deve estar em CSV valido: campos de texto entre aspas duplas
+  ("..."), sem quebras de linha dentro do campo. Sem markdown, sem numeracao
+  de lista, apenas as duas tabelas CSV (a primeira linha de cada uma deve
+  ser o cabecalho).
+- Responda com as duas tabelas em blocos de codigo separados, prontas para
+  copiar e colar (ou anexar) direto nos arquivos data/modulos.csv e
+  data/perguntas.csv do StudyVet, apendando ao final (sem repetir o
+  cabecalho).
+
+Material de origem:
+[cole aqui o conteudo da aula/PDF/resumo]`;
+
+function buildAiPrompt() {
+  let nextNum = 1;
+  state.modules.forEach((mod) => {
+    const match = /(\d+)$/.exec(mod.id_modulo || "");
+    if (match) nextNum = Math.max(nextNum, parseInt(match[1], 10) + 1);
+  });
+  const nextOrder = state.modules.length
+    ? Math.max(...state.modules.map((m) => parseInt(m.ordem) || 0)) + 1
+    : 1;
+  const nextId = "mod" + String(nextNum).padStart(2, "0");
+  const nextIdNum = String(nextNum).padStart(2, "0");
+  return AI_PROMPT_TEMPLATE
+    .replaceAll("{NEXT_ID}", nextId)
+    .replaceAll("{NEXT_ID_NUM}", nextIdNum)
+    .replaceAll("{NEXT_ORDER}", String(nextOrder));
+}
+
 async function fetchText(path) {
   try {
     const res = await fetch(path, { cache: "no-store" });
@@ -303,6 +363,30 @@ function setupImport() {
     e.target.value = "";
     await loadAllData();
     renderPath();
+    el("ai-prompt-text").textContent = buildAiPrompt();
+  });
+}
+
+function setupCopyPrompt() {
+  const btn = el("copy-prompt-btn");
+  btn.addEventListener("click", async () => {
+    const text = el("ai-prompt-text").textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (e) {
+      const range = document.createRange();
+      range.selectNode(el("ai-prompt-text"));
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      window.getSelection().removeAllRanges();
+    }
+    btn.textContent = "Copiado!";
+    btn.classList.add("copied");
+    setTimeout(() => {
+      btn.textContent = "Copiar prompt";
+      btn.classList.remove("copied");
+    }, 2000);
   });
 }
 
@@ -317,9 +401,11 @@ async function init() {
   el("tab-trilha").addEventListener("click", () => setActiveTab("trilha"));
   el("tab-topicos").addEventListener("click", () => setActiveTab("topicos"));
   setupImport();
+  setupCopyPrompt();
 
   await loadAllData();
   renderPath();
+  el("ai-prompt-text").textContent = buildAiPrompt();
 
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js").catch(() => {});

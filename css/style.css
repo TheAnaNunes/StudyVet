@@ -242,3 +242,27 @@ html, body {
   background: var(--card-bg); border: 1px solid var(--card-border);
   padding: 1px 6px; border-radius: 4px; font-size: 13px;
 }
+.copy-prompt-btn {
+  margin: 0 0 10px !important;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--green) !important;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+.copy-prompt-btn.copied { color: var(--text-light) !important; border-color: var(--green); }
+.prompt-box {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  margin: 0 0 12px;
+}
+.prompt-note { font-size: 13px; color: var(--text-muted); }
