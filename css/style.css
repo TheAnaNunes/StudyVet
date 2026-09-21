@@ -58,7 +58,28 @@ html, body {
   padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 14px;
 }
 
+.tabbar {
+  display: flex; gap: 8px;
+  padding: 12px 20px 0;
+  position: sticky; top: 57px; background: var(--gray-bg); z-index: 4;
+}
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 999px;
+  background: var(--card-bg);
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+.tab-btn.active { background: var(--green); color: #0b1a00; }
+
 .path-list { padding: 24px 20px 8px; display: flex; flex-direction: column; gap: 28px; }
+.path-list.hidden { display: none; }
+
+.topic-module-card { border-color: var(--card-border) !important; opacity: 1 !important; cursor: pointer !important; }
 
 .subject-heading {
   font-size: 13px;

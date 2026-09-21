@@ -77,11 +77,15 @@ function renderPath() {
   state.progress = Storage.getProgress();
   el("streak-count").textContent = state.progress.streak;
 
-  const list = el("path-list");
+  renderModuleList(el("path-list"), { gated: true });
+  renderModuleList(el("topics-list"), { gated: false });
+}
+
+function renderModuleList(list, { gated }) {
   list.innerHTML = "";
 
   let lastMateria = null;
-  let previousCompleted = true; // primeiro modulo sempre desbloqueado
+  let previousCompleted = true; // primeiro modulo de cada trilha sempre desbloqueado
 
   state.modules.forEach((mod) => {
     if (mod.materia !== lastMateria) {
@@ -94,7 +98,7 @@ function renderPath() {
 
     const modProgress = state.progress.modules[mod.id_modulo];
     const completed = !!(modProgress && modProgress.completed);
-    const unlocked = previousCompleted;
+    const unlocked = !gated || previousCompleted;
 
     const card = document.createElement("div");
     card.className = "module-card" + (completed ? " done" : "") + (!unlocked ? " locked" : "");
@@ -124,6 +128,13 @@ function renderPath() {
     list.innerHTML = `<p style="color:var(--text-muted);text-align:center;padding:32px 0;">
       Nenhum modulo encontrado. Importe um CSV para comecar.</p>`;
   }
+}
+
+function setActiveTab(tab) {
+  el("tab-trilha").classList.toggle("active", tab === "trilha");
+  el("tab-topicos").classList.toggle("active", tab === "topicos");
+  el("path-list").classList.toggle("hidden", tab !== "trilha");
+  el("topics-list").classList.toggle("hidden", tab !== "topicos");
 }
 
 function escapeHtml(str) {
@@ -303,6 +314,8 @@ async function init() {
   el("result-continue").addEventListener("click", backToPath);
   el("about-btn").addEventListener("click", () => showScreen("screen-about"));
   el("about-close").addEventListener("click", backToPath);
+  el("tab-trilha").addEventListener("click", () => setActiveTab("trilha"));
+  el("tab-topicos").addEventListener("click", () => setActiveTab("topicos"));
   setupImport();
 
   await loadAllData();
