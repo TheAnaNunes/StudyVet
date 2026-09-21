@@ -301,6 +301,8 @@ async function init() {
   el("quiz-close").addEventListener("click", backToPath);
   el("action-btn").addEventListener("click", advanceQuiz);
   el("result-continue").addEventListener("click", backToPath);
+  el("about-btn").addEventListener("click", () => showScreen("screen-about"));
+  el("about-close").addEventListener("click", backToPath);
   setupImport();
 
   await loadAllData();

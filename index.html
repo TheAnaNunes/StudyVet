@@ -22,9 +22,12 @@
   <section id="screen-path" class="screen">
     <header class="topbar">
       <div class="topbar-title">StudyVet</div>
-      <div class="streak-badge" id="streak-badge">
-        <span class="flame">🔥</span>
-        <span id="streak-count">0</span>
+      <div class="topbar-actions">
+        <div class="streak-badge" id="streak-badge">
+          <span class="flame">🔥</span>
+          <span id="streak-count">0</span>
+        </div>
+        <button id="about-btn" class="icon-btn" aria-label="Sobre o StudyVet">ⓘ</button>
       </div>
     </header>
     <div id="path-list" class="path-list"></div>
@@ -73,6 +76,49 @@
         </div>
       </div>
       <button id="result-continue" class="action-btn">Continuar</button>
+    </div>
+  </section>
+
+  <!-- TELA: SOBRE O APP -->
+  <section id="screen-about" class="screen hidden">
+    <header class="quiz-header">
+      <button id="about-close" class="icon-btn" aria-label="Fechar">✕</button>
+      <div class="topbar-title">Sobre o StudyVet</div>
+    </header>
+    <div class="about-body">
+      <p>O <strong>StudyVet</strong> e um app de estudos pra veterinaria, no
+      estilo Duolingo: trilha de modulos organizados por ordem cronologica de
+      estudo, licoes com perguntas de multipla escolha, coracoes, XP e streak
+      de dias estudando.</p>
+
+      <h3>Como funciona</h3>
+      <ul>
+        <li>Cada <strong>materia</strong> vira um grupo de modulos na trilha.</li>
+        <li>Os modulos se desbloqueiam em ordem — termine um pra liberar o
+        proximo.</li>
+        <li>Em cada licao, responda as perguntas; errar tira um coracao, e a
+        licao reinicia se os coracoes acabarem.</li>
+        <li>O progresso, XP e streak ficam salvos <strong>so no seu
+        celular</strong> (nao ha login nem servidor) — limpar os dados do
+        navegador apaga o progresso.</li>
+      </ul>
+
+      <h3>De onde vem o conteudo</h3>
+      <p>Todo o conteudo vem de arquivos CSV (<code>data/modulos.csv</code> e
+      <code>data/perguntas.csv</code>). Qualquer pessoa pode complementar com
+      novas materias.</p>
+
+      <h3>Como adicionar mais materias</h3>
+      <ol>
+        <li>Toque em <strong>"Importar CSV"</strong> na tela inicial e
+        selecione os arquivos <code>modulos.csv</code> e/ou
+        <code>perguntas.csv</code> da nova materia (o app reconhece pelo
+        cabecalho das colunas).</li>
+        <li>Ou edite/adicione os arquivos direto na pasta <code>data/</code>
+        do repositorio, se tiver acesso ao codigo.</li>
+      </ol>
+      <p>O formato exato dos CSVs e um prompt pronto pra gerar novo conteudo
+      com IA estao no <code>README.md</code> do repositorio.</p>
     </div>
   </section>
 
